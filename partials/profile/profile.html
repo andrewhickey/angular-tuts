@@ -1,0 +1,22 @@
+
+    <div class="row">
+      <ul class="nav nav-tabs" role="tablist">
+        <li ng-class="{active: $state.includes('profile.view')}" ><a  ui-sref="profile.view">Public Profile</a></li>
+        <li ng-class="{active:$state.includes('profile.personal_business_quest')}"><a  ui-sref="profile.personal_business_quest">Personal Business Quest</a></li>
+        <li ng-class="{active:$state.includes('profile.focus_areas')}"><a  ui-sref="profile.focus_areas">Focus Areas</a></li>
+        <li ng-class="{active:$state.includes('profile.notifications')}"><a  ui-sref="profile.notifications">Notifications</a></li>
+      </ul>
+    </div>
+
+    <div class="row" >
+      <div class="col-md-4">
+        <img ng-src={{user.image}} alt="" width=100>
+        <h4>{{user.company}}</h4>
+        <h4>{{user.fname}} {{user.lname}}</h4>
+        <h4>{{user.email}}</h4>
+        {{ $state.current.name }}
+      </div>
+      <div class="col-md-8">
+        <ui-view></ui-view>
+      </div>
+    </div>

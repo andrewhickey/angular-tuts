@@ -1,0 +1,26 @@
+<a class="pull-right" ng-hide="editable" ng-click="setEditable(true)">Edit</a>
+<h1>Public Profile </h1>
+
+<div ng-hide="editable">
+  
+  <div>
+    <h3>About me</h3>
+    {{user.about_me}}
+  </div>
+
+  <div>
+    <h3>Areas of interest</h3>
+    {{user.areas_of_interest}}
+  </div>
+
+  <div>
+    <h3>Education</h3>
+    {{user.education}}
+  </div>
+
+  <div>
+    <h3>My strengths/experiences</h3>
+    {{user.strengths_experiences}}
+  </div>
+
+</div>
