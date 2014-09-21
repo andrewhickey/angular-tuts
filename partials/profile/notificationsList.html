@@ -1,0 +1,7 @@
+<ul>
+  <li ng-repeat="notification in notifications">
+      <a ui-sref="profile.notifications_id({notificationId: notification.id})">
+        {{notification.title}}
+      </a>
+  </li>
+</ul>

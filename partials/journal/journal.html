@@ -1,6 +1,6 @@
   <div class="row" >
     <div class="col-md-4">
-    Search
+      Search
     </div>
     <div class="col-md-8">
       compose new
@@ -9,8 +9,10 @@
 
   <div class="row" >
     <div class="col-md-4 " >
-      <div ng-repeat="journal_entry in journal_entries" ng-class="{ 'label-info': $state.includes('journal.view') }">
-        {{journal_entry.title}}
+      <div ng-repeat="journal_entry in journal_entries" ng-class="{ 'label-info': $state.includes('journal.view_id', {entryId: journal_entry.id} )  }">
+        <a ui-sref="journal.view_id({entryId: journal_entry.id})">
+          {{journal_entry.title}}
+        </a>
       </div>
     </div>
     <div class="col-md-8">

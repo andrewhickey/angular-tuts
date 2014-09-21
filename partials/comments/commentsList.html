@@ -1,0 +1,15 @@
+<form role="form" name="addCommentForm" ng-submit="addComment()" novalidate>
+
+  <div class="form-group">
+    <textarea class="form-control" id="commentInput" placeholder="Join the discussion!" ng-model="new_comment.body"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-default">Add comment</button>
+  
+</form>
+
+<ul>
+  <li ng-repeat="comment in comments">
+    {{ comment.body }}
+  </li>
+</ul>

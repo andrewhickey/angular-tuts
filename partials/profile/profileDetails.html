@@ -1,4 +1,33 @@
-<form role="form" name="editProfileForm" ng-show="editable" ng-submit="setEditable(false)" novalidate>
+<a class="pull-right" ng-hide="profile_edit_mode" ng-click="setEditMode(true)">Edit</a>
+<a class="pull-right" ng-show="profile_edit_mode" ng-click="setEditMode(false)">Cancel</a>
+<h1>Public Profile </h1>
+
+<div ng-hide="profile_edit_mode">
+  
+  <div>
+    <h3>About me</h3>
+    {{user.about_me}}
+  </div>
+
+  <div>
+    <h3>Areas of interest</h3>
+    {{user.areas_of_interest}}
+  </div>
+
+  <div>
+    <h3>Education</h3>
+    {{user.education}}
+  </div>
+
+  <div>
+    <h3>My strengths/experiences</h3>
+    {{user.strengths_experiences}}
+  </div>
+
+</div>
+
+
+<form role="form" name="editProfileForm" ng-show="profile_edit_mode" ng-submit="setEditMode(false)" novalidate>
             
   <div class="form-group">
     <label for="fnameInput">First Name</label>

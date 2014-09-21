@@ -5,16 +5,22 @@ var journal = angular
   .config( function($stateProvider, $urlRouterProvider) {
     // For any unmatched url, redirect to /state1
     //$urlRouterProvider.otherwise("/journal/view");
-    //$urlRouterProvider.when('/journal', '/journal/view');
     
     $stateProvider
       .state('journal.view', {
-        url: "/view",
-        templateUrl: "partials/journal/viewJournalEntryDetails.html",
+        url: "/view"
       })
-      .state('journal.view.id', {
-        url: "/{entryId}",
+      .state('journal.view_id', {
+        url: "/view/{entryId}",
         templateUrl: "partials/journal/viewJournalEntryDetails.html",
+        controller: function($scope, journalFactory, $stateParams) {
+          $scope.journal_entry = {};
+
+          init();
+          function init() {
+            $scope.journal_entry = journalFactory.getEntry($stateParams.entryId);
+          }
+        }
       })
   })
 
@@ -23,17 +29,16 @@ var journal = angular
       restrict: 'E',
       templateUrl: 'partials/journal/journal.html',
       controller: function($scope, journalFactory, $stateParams) {
-        console.log($stateParams);
         $scope.journal_entries = [];
 
         init();
         function init() {
           $scope.journal_entries = journalFactory.getEntries();
-          console.log($scope.journal_entries);
         }
 
       }
     };
+
   });
 
 })();

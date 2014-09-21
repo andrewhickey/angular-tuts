@@ -10,23 +10,67 @@ var profile = angular
     $stateProvider
       .state('profile.view', {
         url: "/view",
-        templateUrl: "partials/profile/viewProfileDetails.html",
+        views: {
+          "profile-left-pane": { templateUrl: "partials/profile/profileSummary.html" },
+          "profile-right-pane": {
+            templateUrl: "partials/profile/profileDetails.html",
+            controller: 'ProfileDetailsController'
+          }
+        }
       })
+
       .state('profile.personal_business_quest', {
         url: "/personalquest",
-        templateUrl: "partials/profile/personalBusinessQuestProfile.html"
+        views: {
+          "profile-left-pane": { templateUrl: "partials/profile/profileSummary.html" },
+          "profile-right-pane": {
+            templateUrl: "partials/profile/personalBusinessQuestProfile.html",
+            data: {
+              commentable_name: 'personal_quest'
+            }  
+          }
+        }
       })
+
       .state('profile.focus_areas', {
         url: "/focusareas",
-        templateUrl: "partials/profile/focusAreasProfile.html"
+        views: {
+          "profile-left-pane": { templateUrl: "partials/profile/profileSummary.html" },
+          "profile-right-pane": {
+            templateUrl: "partials/profile/focusAreasProfile.html",
+            data: {
+              commentable_name: 'focus_areas'
+            }  
+          }
+        }
       })
+
       .state('profile.notifications', {
         url: "/notifications",
-        templateUrl: "partials/profile/notificationsProfile.html",
-        controller: function($scope) {
-          $scope.things = ["A", "Set", "Of", "Things"];
+        views: {
+          "profile-left-pane": { 
+            templateUrl: "partials/profile/notificationsList.html",
+            controller: 'ProfileNotificationsController'
+          },
+          "profile-right-pane": {
+            templateUrl: "partials/profile/notificationProfile.html"
+          }
         }
-      });
+      })
+
+      .state('profile.notifications_id', {
+        url: "/notifications/{notificationId}",
+        views: {
+          "profile-left-pane": { 
+            templateUrl: "partials/profile/notificationsList.html",
+            controller: 'ProfileNotificationsController'
+          },
+          "profile-right-pane": {
+            templateUrl: "partials/profile/notificationProfile.html",
+            controller: 'ProfileNotificationsController'
+          }
+        }
+      })
   })
 
   .directive('profilePopout', function() {
@@ -34,24 +78,54 @@ var profile = angular
       restrict: 'E',
       templateUrl: 'partials/profile/profile.html',
       controller: function($scope, userFactory) {
-        
-        $scope.tab = 1;
         $scope.user = {};
-
         init();
         function init() {
           $scope.user = userFactory.getUser();
         }
-
-        $scope.setTab = function(value) {
-          $scope.tab = value;
-        }
-
-        $scope.isTab = function(value) {
-          return $scope.tab === value;
-        }
       }
     };
+  })
+
+  .controller('ProfileNotificationsController', function($scope, notificationsFactory, $stateParams){
+    $scope.notifications = [];
+    $scope.active_notification = {};
+
+    init();
+    function init() {
+      $scope.notifications = notificationsFactory.getNotifications();
+      
+      if($stateParams.notificationId) {
+        $scope.active_notification = notificationsFactory.getNotification($stateParams.notificationId);
+      }
+    }
+
+  })
+
+  .controller('ProfileDetailsController', function($scope){
+    $scope.profile_edit_mode = false;
+    $scope.setEditMode = function(value) {
+      $scope.profile_edit_mode = value;
+
+      init();
+      function init() {
+        $scope.user = userFactory.getUser();
+      }
+    };
+  })
+
+  .directive('talkingPoint', function(){
+    return {
+      restrict: 'E',
+      scope: { commentable: '=' },
+      templateUrl: 'partials/profile/profileTalkingPoint.html'
+    };
   });
+
+
+
+ 
+
+
 
 })();
