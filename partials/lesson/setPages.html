@@ -1,0 +1,7 @@
+<ul>
+  <li ng-repeat="page in set.pages">
+    <a ui-sref="lesson.view.module.set.page({lessonId: lesson.id, moduleId: module.id, setId: set.id, pageId: page.id})">{{page.title}}</a> 
+  </li>
+</ul>
+
+<div ui-view="page-view"></div>

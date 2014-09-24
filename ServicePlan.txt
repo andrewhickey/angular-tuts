@@ -1,0 +1,10 @@
+general rest service to minimize calls
+
+look for model in current array by id, if it exists return
+if it doesn't exist fetch
+if fetch fails create an empty object
+
+otherwise loop through properties
+if property is an array of objects,
+looks for another service with the same name, ( eg sets: [{},{}]) setsService
+pass the objects to that service's collection

@@ -1,0 +1,8 @@
+<h1>{{lesson.title}}</h1>
+<p>{{lesson.description}}</p>
+<ul>
+  <li ng-repeat="module in lesson.modules">
+    <a ui-sref="lesson.view.module({lessonId: lesson.id, moduleId: module.id})">{{module.title}} - View</a>  
+  </li>
+</ul>
+<h4>{{lesson.title}} Progress</h4>

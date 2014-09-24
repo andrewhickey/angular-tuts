@@ -1,0 +1,13 @@
+<form role="form" name="journalForm" ng-submit="submitEntry()" novalidate>
+  <div class="form-group">
+    <label for="journalTitleInput">Title</label>
+    <input class="form-control" id="journalTitleInput" placeholder="Enter your title" ng-model="entry.title">
+  </div>
+  <div class="form-group">
+    <label for="journalBodyInput">Body</label>
+    <textarea class="form-control" id="journalBodyInput" placeholder="What do you want to record?" ng-model="entry.body"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-default">Save</button>
+  
+</form>

@@ -1,0 +1,8 @@
+<div class="panel">
+<h2>Map</h2>
+
+  <ul>
+    <li ng-repeat="lesson in lessons"><a ui-sref="lesson.summary({lessonId: lesson.id})">{{lesson.title}}</a></li>
+  </ul>
+
+</div>

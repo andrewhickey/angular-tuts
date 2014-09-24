@@ -1,6 +1,6 @@
 <ul>
-  <li ng-repeat="notification in notifications">
-      <a ui-sref="profile.notifications_id({notificationId: notification.id})">
+  <li ng-repeat="notification in notifications" ng-class="{ 'label-info': $state.includes('profile.notifications_id', {notificationId: notification.id} )  }">
+      <a ui-sref="profile.notifications_id({notificationId: notification.id})"  >
         {{notification.title}}
       </a>
   </li>

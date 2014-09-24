@@ -7,21 +7,23 @@
 
   // <comments></comments> will expand to a list of comments with a form to add more
   // requires commentable to be in the parent scope
-  comments.directive('comments', function(commentsFactory) {
+  comments.directive('comments', function(commentsService) {
     return {
         restrict: "E",
-        controller: function ($scope) {
+        scope: { commentable: '=' },
+        controller: function ($scope, $filter) {
           $scope.comments = [];
           $scope.new_comment = {};
 
           $scope.addComment = function() {
-            $scope.comments.push({body: $scope.new_comment.body});
+            commentsService.addComment({body: $scope.new_comment.body, commentable_id: $scope.commentable.id})
+            $scope.comments = commentsService.getComments($scope.commentable.id);
             $scope.new_comment = {};
           };
 
           init();
           function init() {
-            $scope.comments = commentsFactory.getComments($scope.commentable.id);
+            $scope.comments = commentsService.getComments($scope.commentable.id);
           };
 
         },

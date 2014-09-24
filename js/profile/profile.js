@@ -6,7 +6,6 @@ var profile = angular
     // For any unmatched url, redirect to /state1
     //$urlRouterProvider.otherwise("/profile/view");
     //$urlRouterProvider.when('/profile', '/profile/view');
-    
     $stateProvider
       .state('profile.view', {
         url: "/view",
@@ -16,7 +15,9 @@ var profile = angular
             templateUrl: "partials/profile/profileDetails.html",
             controller: 'ProfileDetailsController'
           }
-        }
+        },
+        deepStateRedirect: true,
+        sticky: true
       })
 
       .state('profile.personal_business_quest', {
@@ -29,7 +30,9 @@ var profile = angular
               commentable_name: 'personal_quest'
             }  
           }
-        }
+        },
+        deepStateRedirect: true,
+        sticky: true
       })
 
       .state('profile.focus_areas', {
@@ -42,7 +45,9 @@ var profile = angular
               commentable_name: 'focus_areas'
             }  
           }
-        }
+        },
+        deepStateRedirect: true,
+        sticky: true
       })
 
       .state('profile.notifications', {
@@ -55,7 +60,9 @@ var profile = angular
           "profile-right-pane": {
             templateUrl: "partials/profile/notificationProfile.html"
           }
-        }
+        },
+        deepStateRedirect: true,
+        sticky: true
       })
 
       .state('profile.notifications_id', {
@@ -70,34 +77,36 @@ var profile = angular
             controller: 'ProfileNotificationsController'
           }
         }
-      })
+      });
   })
 
-  .directive('profilePopout', function() {
+  .directive('profilePopover', function() {
     return {
       restrict: 'E',
       templateUrl: 'partials/profile/profile.html',
-      controller: function($scope, userFactory) {
+      controller: function($scope, userService) {
         $scope.user = {};
         init();
         function init() {
-          $scope.user = userFactory.getUser();
+          $scope.user = userService.getUser();
         }
       }
     };
   })
 
-  .controller('ProfileNotificationsController', function($scope, notificationsFactory, $stateParams){
+  .controller('ProfileNotificationsController', function($scope, notificationsService, $stateParams, $state){
     $scope.notifications = [];
     $scope.active_notification = {};
 
     init();
     function init() {
-      $scope.notifications = notificationsFactory.getNotifications();
+      $scope.notifications = notificationsService.getNotifications();
       
       if($stateParams.notificationId) {
-        $scope.active_notification = notificationsFactory.getNotification($stateParams.notificationId);
-      }
+        $scope.active_notification = notificationsService.getNotification($stateParams.notificationId);
+      } 
+
+      if ($state.current.name === 'profile.notifications' && $scope.notifications.length > 0) $state.go('profile.notifications_id', {notificationId: $scope.notifications[0].id} );
     }
 
   })
@@ -109,7 +118,7 @@ var profile = angular
 
       init();
       function init() {
-        $scope.user = userFactory.getUser();
+        $scope.user = userService.getUser();
       }
     };
   })

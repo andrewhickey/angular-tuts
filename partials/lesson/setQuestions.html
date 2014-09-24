@@ -1,0 +1,10 @@
+<div>
+<ul>
+  <li ng-repeat="question in set.questions">
+    <a ui-sref="lesson.view.module.set.question({lessonId: lesson.id, moduleId: module.id, setId: set.id, questionId: question.id})">{{question.title}}</a>
+  </li>
+</ul>
+</div>
+<div ui-view="question-view">
+  
+</div>
