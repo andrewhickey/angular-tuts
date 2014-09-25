@@ -1,7 +1,7 @@
 (function() {
 
 var profile = angular
-  .module('profileModule', ['ui.router'])
+  .module('profileModule', ['ui.router', 'breezeDataModule'])
   .config( function($stateProvider, $urlRouterProvider) {
     // For any unmatched url, redirect to /state1
     //$urlRouterProvider.otherwise("/profile/view");
@@ -84,7 +84,20 @@ var profile = angular
     return {
       restrict: 'E',
       templateUrl: 'partials/profile/profile.html',
-      controller: function($scope, userService) {
+      controller: function($scope, userService, breezeService) {
+        $scope.members = [];
+        
+        breezeService.getMembers().then( function(members) {
+          $scope.message = 'Got '+ members.length+ ' Members';
+          $scope.members = members;
+          angular.forEach($scope.members, function(page) {
+            console.log(page.set());
+          });
+          console.log(breezeService.filterPages());
+        });
+
+
+
         $scope.user = {};
         init();
         function init() {
@@ -130,11 +143,5 @@ var profile = angular
       templateUrl: 'partials/profile/profileTalkingPoint.html'
     };
   });
-
-
-
- 
-
-
 
 })();
