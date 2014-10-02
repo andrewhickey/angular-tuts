@@ -14,7 +14,7 @@
   <script type="text/javascript" src="js/profile/profile.js"></script>
   <script type="text/javascript" src="js/journal/journal.js"></script>
   <script type="text/javascript" src="js/comments/comments.js"></script>
-  <script type="text/javascript" src="js/data/usermodel.js"></script>
+  <script type="text/javascript" src="js/data/userprovider.js"></script>
   <script type="text/javascript" src="js/data/lessonmodel.js"></script>
   <script type="text/javascript" src="js/data/commentsmodel.js"></script>
   <script type="text/javascript" src="js/data/modulemodel.js"></script>
@@ -41,7 +41,7 @@
   <div>
     <h1>Main Menu</h1>
     <ul>
-      <li><a ui-sref="profile.view">Profile</a></li>
+      <li><a ui-sref="profile.view({userId: 1})">Profile</a></li>
       <li><a ui-sref="journal.view">Journal</a></li>
     </ul>
   </div>

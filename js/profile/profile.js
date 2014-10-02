@@ -8,7 +8,7 @@ var profile = angular
     //$urlRouterProvider.when('/profile', '/profile/view');
     $stateProvider
       .state('profile.view', {
-        url: "/view",
+        url: "/view/{userId}",
         views: {
           "profile-left-pane": { templateUrl: "partials/profile/profileSummary.html" },
           "profile-right-pane": {
@@ -80,28 +80,18 @@ var profile = angular
       });
   })
 
-  .directive('profilePopover', function() {
+  .directive('profilePopover', function($stateParams) {
     return {
       restrict: 'E',
       templateUrl: 'partials/profile/profile.html',
-      controller: function($scope, userService, breezeService) {
-        $scope.members = [];
-        
-        breezeService.getMembers().then( function(members) {
-          $scope.message = 'Got '+ members.length+ ' Members';
-          $scope.members = members;
-          angular.forEach($scope.members, function(page) {
-            console.log(page.set());
-          });
-          console.log(breezeService.filterPages());
-        });
-
-
-
+      controller: function($scope, userService) {
         $scope.user = {};
         init();
         function init() {
-          $scope.user = userService.getUser();
+          userService.getUser($stateParams.userId).then(function(data){ 
+            $scope.user = data.entity;
+            console.log($scope.user);
+          });
         }
       }
     };
@@ -128,11 +118,6 @@ var profile = angular
     $scope.profile_edit_mode = false;
     $scope.setEditMode = function(value) {
       $scope.profile_edit_mode = value;
-
-      init();
-      function init() {
-        $scope.user = userService.getUser();
-      }
     };
   })
 

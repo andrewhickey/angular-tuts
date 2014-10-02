@@ -13365,6 +13365,7 @@ var EntityManager = (function () {
     proto.fetchEntityByKey = function () {
         var dataService = DataService.resolve([this.dataService]);
         if ((!dataService.hasServerMetadata) || this.metadataStore.hasMetadataFor(dataService.serviceName)) {
+            console.log('use core');
             return fetchEntityByKeyCore(this, arguments);
         } else {
             var that = this;
