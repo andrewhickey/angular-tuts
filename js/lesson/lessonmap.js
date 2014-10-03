@@ -12,7 +12,11 @@ var profile = angular
         $scope.lessons = [];
         init();
         function init() {
-          $scope.lessons = lessonService.getLessons();
+          lessonService.getLessons().then(function(data){ 
+            console.log(data);
+            $scope.lessons = data;
+            console.log($scope.lessons);
+          });
         }
       }
     };

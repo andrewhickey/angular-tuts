@@ -11190,7 +11190,6 @@ var SimplePredicate = (function () {
     
 
     proto.toODataFragment = function (entityType, prefix) {
-        console.log(this._odataExpr);
         if (this._odataExpr) {
             return this._odataExpr;
         }
@@ -11198,17 +11197,14 @@ var SimplePredicate = (function () {
         var filterQueryOp = this._filterQueryOp;
         var value = this._value;
         if (filterQueryOp == FilterQueryOp.IsTypeOf) {
-            console.log('ONE');
             var oftype = entityType.metadataStore.getEntityType(value);
             var typeName = oftype.namespace + '.' + oftype.shortName;
             return filterQueryOp.operator + "(" + DataType.String.fmtOData(typeName) + ")";
         }
-        console.log('TWO');
         this.validate(entityType);
 
         var v1Expr = this._fnNode1 && this._fnNode1.toODataFragment(entityType);
         if (prefix) {
-          console.log('THREE');
             v1Expr = prefix + "/" + v1Expr;
         } 
 
@@ -11216,10 +11212,8 @@ var SimplePredicate = (function () {
         prefix = "x" + Predicate._next;
 
         if (filterQueryOp.isAnyAll) {
-          console.log('FOUR');
             return v1Expr + "/" + filterQueryOp.operator + "(" + prefix + ": " + value.toODataFragment(this.dataType, prefix) + ")";
         } else {
-          console.log('FIVE');
             var v2Expr;
             if (this._fnNode2) {
                 v2Expr = this._fnNode2.toODataFragment(entityType);
@@ -11227,7 +11221,6 @@ var SimplePredicate = (function () {
                 var dataType = this._fnNode1.dataType || this._dataType;
                 v2Expr = dataType.fmtOData(value);
             }
-                console.log('v2Expr',v2Expr);
             if (filterQueryOp.isFunction) {
                 if (filterQueryOp == FilterQueryOp.Contains) {
                     return filterQueryOp.operator + "(" + v2Expr + "," + v1Expr + ") eq true";
@@ -11287,7 +11280,6 @@ var SimplePredicate = (function () {
             this._value.validate(this.dataType);
             return;
         }
-        console.log('VALIDATION TIME');
         
         if (!(this._fnNode2) && !this._isLiteral) {
            this._fnNode2 = FnNode.create(this._value, entityType);

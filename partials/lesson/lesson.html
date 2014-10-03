@@ -1,7 +1,7 @@
 <div class="row">
   <ul class="nav nav-tabs" role="tablist">
     <li ng-repeat="module in lesson.modules" ng-class="{ 'active': $state.includes('lesson.view.module', {lessonId: lesson.id, moduleId: module.id} )  }">
-      <a ui-sref="lesson.view.module({lessonId: lesson.id, moduleId: module.id})">{{module.title}} - View</a>  
+      <a ui-sref="lesson.view.module({lessonId: lesson.id, moduleId: module.id})">{{module.name}} - View</a>  
     </li>
   </ul>
 </div>

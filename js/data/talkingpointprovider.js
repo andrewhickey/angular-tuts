@@ -1,8 +1,8 @@
 (function() {
   var User = angular
-  .module('userProvider',[])
+  .module('talkingPointProvider',[])
   
-  .factory('userService', ['breeze' , 'breezeService', function (breeze, breezeService) {
+  .factory('talkingPointService', ['breeze' , 'breezeService', function (breeze, breezeService) {
     
     var DT = breeze.DataType;
     var BOOL = DT.Boolean;
@@ -10,13 +10,14 @@
     var ID = DT.Int32;
       
     var service = {
-      getUser: getUser
+      getComments: getComments,
+      addComment: addComment
     };
 
     
     function getUser(userId){
       userId = userId ? userId : 1;
-      return breezeService.manager.fetchEntityByKey ('EUser', userId, true);
+      return breezeService.manager.fetchEntityByKey('ETalkingPoint', userId);
     }
 
     function success(data) {

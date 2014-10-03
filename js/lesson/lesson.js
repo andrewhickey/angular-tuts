@@ -61,14 +61,19 @@ var lesson = angular
     $scope.lesson = {};
     init();
     function init() {
-      $scope.lesson = lessonService.getLesson($stateParams.lessonId);
+      console.log('test');
+      lessonService.getLesson($stateParams.lessonId).then(function(data){
+        $scope.lesson = data.entity;
+      });
     }
   })
   .controller('moduleController', function($scope, $stateParams, moduleService) {
     $scope.module = {};
     init();
     function init() {
-      $scope.module = moduleService.getModule($stateParams.moduleId);
+      moduleService.getModule($stateParams.moduleId).then(function(data){
+        $scope.module = data.entity;
+      });
     }
   })
 
@@ -76,7 +81,9 @@ var lesson = angular
     $scope.set = {};
     init();
     function init() {
-      $scope.set = setService.getSet($stateParams.setId);
+      setService.getSet($stateParams.setId).then(function(data){
+         $scope.set = data.entity;
+      });
     }
   })
 
@@ -84,7 +91,9 @@ var lesson = angular
     $scope.page = {};
     init();
     function init() {
-      $scope.page = pageService.getPage($stateParams.pageId);
+      $scope.page = pageService.getPage($stateParams.pageId).then(function(data){
+        
+      });
     }
   })
 
@@ -92,7 +101,9 @@ var lesson = angular
     $scope.question = {};
     init();
     function init() {
-      $scope.question = questionService.getQuestion($stateParams.questionId);
+      $scope.question = questionService.getQuestion($stateParams.questionId).then(function(data){
+        
+      });
     }
   });
   

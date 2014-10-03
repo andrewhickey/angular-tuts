@@ -15,7 +15,11 @@ var journal = angular
     $scope.lesson = {};
     init();
     function init() {
-      $scope.lesson = lessonService.getLesson($stateParams.lessonId);
+      console.log('test');
+      lessonService.getLesson($stateParams.lessonId).then(function(data){
+        console.log(data);
+        $scope.lesson = data.entity;
+      });
     }
   });
   
