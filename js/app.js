@@ -1,10 +1,7 @@
 (function() {
- 
 
-  var questApp = angular
-  
-  .module('quest',[
-    'ui.router', 
+  angular.module('quest',[
+    'ui.router',
     'ct.ui.router.extras',
     'profileModule',
     'journalModule',
@@ -13,7 +10,6 @@
   ])
 
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-
     // For any unmatched url, redirect to /state1
     //$urlRouterProvider.otherwise("/profile/view");
     $stateProvider
@@ -24,7 +20,7 @@
         },
         onEnter: function($previousState){
           $previousState.memo("before-popover");
-        },
+        }
       })
       .state('profile', {
         url: "/profile",
@@ -71,6 +67,6 @@
         $rootScope.$previousState = $previousState;
       }
     ]
-  ); 
+  );
 
 })();

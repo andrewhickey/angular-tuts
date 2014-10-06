@@ -15,9 +15,7 @@ var journal = angular
     $scope.lesson = {};
     init();
     function init() {
-      console.log('test');
-      lessonService.getLesson($stateParams.lessonId).then(function(data){
-        console.log(data);
+      lessonService.getLesson($stateParams.lessonId, ['modules']).then(function(data){
         $scope.lesson = data.entity;
       });
     }

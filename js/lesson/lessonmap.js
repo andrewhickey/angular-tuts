@@ -13,9 +13,7 @@ var profile = angular
         init();
         function init() {
           lessonService.getLessons().then(function(data){ 
-            console.log(data);
             $scope.lessons = data;
-            console.log($scope.lessons);
           });
         }
       }

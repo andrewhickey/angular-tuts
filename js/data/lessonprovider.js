@@ -1,6 +1,5 @@
 (function() {
-  var Lesson = angular
-  .module('lessonProvider',[])
+  angular.module('lessonProvider',[])
   
   .factory('lessonService', ['breeze' , 'breezeService', function (breeze, breezeService) {
     
@@ -15,9 +14,15 @@
     };
 
     
-    function getLesson(lessonId){
+    function getLesson(lessonId, eagerAttributes){
+      console.log(eagerAttributes);
       lessonId = lessonId ? lessonId : 1;
-      return breezeService.manager.fetchEntityByKey ('ELesson', lessonId, true);
+      var query = breeze.EntityQuery.from('ELesson')
+                                    .where('id', 'eq', 1)
+                                    .expand(eagerAttributes);
+      
+      return breezeService.manager.executeQuery(query) // returns a promise
+                                  .then(success, failed);
     }
 
     function getLessons(){

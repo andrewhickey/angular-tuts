@@ -8,15 +8,15 @@
     'profileModule',
     'journalModule',
     'commentsModule',
-    'lessonProvider',
     'lessonModule',
     'lessonSummaryModule',
     'lessonMapModule',
     'commentsModel',
+    'lessonProvider',
     'moduleProvider',
-    'setModel',
-    'pageModel',
-    'questionsModel',
+    'setProvider',
+    'pageProvider',
+    'questionProvider',
     'userProvider'
   ])
   .config(['breezeProvider', function(breezeProvider) {
@@ -33,7 +33,7 @@
     var BOOL = DT.Boolean;
     var DATE = DT.DateTime;
     var ID = DT.Int32;
-      
+    console.log('STARTING DATA SERVICE');
     var service = {
       manager: createManager()
     };
@@ -87,7 +87,6 @@
       return $q.reject(error.message);
     }   
 
-    
     return service;
   }]);
 

@@ -61,7 +61,6 @@ var lesson = angular
     $scope.lesson = {};
     init();
     function init() {
-      console.log('test');
       lessonService.getLesson($stateParams.lessonId).then(function(data){
         $scope.lesson = data.entity;
       });
@@ -91,8 +90,8 @@ var lesson = angular
     $scope.page = {};
     init();
     function init() {
-      $scope.page = pageService.getPage($stateParams.pageId).then(function(data){
-        
+      pageService.getPage($stateParams.pageId).then(function(data){
+        $scope.page = data.entity;
       });
     }
   })
@@ -101,8 +100,8 @@ var lesson = angular
     $scope.question = {};
     init();
     function init() {
-      $scope.question = questionService.getQuestion($stateParams.questionId).then(function(data){
-        
+      questionService.getQuestion($stateParams.questionId).then(function(data){
+        $scope.question = data.entity;
       });
     }
   });
