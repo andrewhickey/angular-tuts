@@ -1,11 +1,15 @@
-<div class="row">
-  <ul class="nav nav-tabs" role="tablist">
-    <li ng-repeat="module in lesson.modules" ng-class="{ 'active': $state.includes('lesson.view.module', {lessonId: lesson.id, moduleId: module.id} )  }">
-      <a ui-sref="lesson.view.module({lessonId: lesson.id, moduleId: module.id})">{{module.name}} - View</a>  
-    </li>
-  </ul>
-</div>
+<a ui-sref="root"><div class="quest-blackout"></div></a>
 
-<div class="row" ui-view="module-view">
+<div class="lesson-modal quest-modal">
   
+  <div class="row">
+    <ul class="nav nav-tabs" role="tablist">
+      <li ng-repeat="module in lesson.modules" ng-class="{ 'active': $state.includes('lesson.module', {lessonId: lesson.id, moduleId: module.id} )  }">
+        <a ui-sref="lesson.module({lessonId: lesson.id, moduleId: module.id})">{{module.name}} - View</a>  
+      </li>
+    </ul>
+  </div>
+
+  <div class="row" ui-view="module-view"></div>
+
 </div>

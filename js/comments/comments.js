@@ -23,8 +23,8 @@
 
           init();
           function init() {
-            $scope.comments = commentsService.getComments($scope.commentable.id);
-          };
+            //$scope.comments = commentsService.getComments($scope.commentable.id);
+          }
 
         },
         templateUrl: 'partials/comments/commentsList.html'

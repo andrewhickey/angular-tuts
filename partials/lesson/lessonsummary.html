@@ -1,8 +1,10 @@
-<h1>{{lesson.name}}</h1>
-<p>{{lesson.description}}</p>
-<ul>
-  <li ng-repeat="module in lesson.modules">
-    <a ui-sref="lesson.view.module({lessonId: lesson.id, moduleId: module.id})">{{module.name}} - View</a>  
-  </li>
-</ul>
-<h4>{{lesson.name}} Progress</h4>
+<div class="summary-modal quest-modal">
+  <h1>{{lesson.name}}</h1>
+  <p>{{lesson.description}}</p>
+  <ul>
+    <li ng-repeat="module in lesson.modules">
+      <a ui-sref="lesson.module({lessonId: lesson.id, moduleId: module.id})">{{module.name}} - View</a>  
+    </li>
+  </ul>
+  <h4>{{lesson.name}} Progress</h4>
+</div>

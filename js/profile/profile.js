@@ -7,6 +7,21 @@ var profile = angular
     //$urlRouterProvider.otherwise("/profile/view");
     //$urlRouterProvider.when('/profile', '/profile/view');
     $stateProvider
+
+      .state('profile', {
+        url: "profile",
+        parent: 'root',
+        views: {
+          'profile-modal-view':{
+            templateUrl: 'partials/profile/profile.html',
+            controller: 'ProfileController'
+          }
+        },
+        onEnter: function($previousState){          
+          if ($previousState.get("before-popover") === void(0)) $previousState.memo("before-popover");
+        }
+      })
+
       .state('profile.view', {
         url: "/view/{userId}",
         views: {
@@ -15,9 +30,7 @@ var profile = angular
             templateUrl: "partials/profile/profileDetails.html",
             controller: 'ProfileDetailsController'
           }
-        },
-        deepStateRedirect: true,
-        sticky: true
+        }
       })
 
       .state('profile.personal_business_quest', {
@@ -30,9 +43,7 @@ var profile = angular
               commentable_name: 'personal_quest'
             }  
           }
-        },
-        deepStateRedirect: true,
-        sticky: true
+        }
       })
 
       .state('profile.focus_areas', {
@@ -45,9 +56,7 @@ var profile = angular
               commentable_name: 'focus_areas'
             }  
           }
-        },
-        deepStateRedirect: true,
-        sticky: true
+        }
       })
 
       .state('profile.notifications', {
@@ -60,9 +69,7 @@ var profile = angular
           "profile-right-pane": {
             templateUrl: "partials/profile/notificationProfile.html"
           }
-        },
-        deepStateRedirect: true,
-        sticky: true
+        }
       })
 
       .state('profile.notifications_id', {
@@ -80,21 +87,19 @@ var profile = angular
       });
   })
 
-  .directive('profilePopover', function($stateParams) {
-    return {
-      restrict: 'E',
-      templateUrl: 'partials/profile/profile.html',
-      controller: function($scope, userService) {
-        $scope.user = {};
-        init();
-        function init() {
-          userService.getUser($stateParams.userId).then(function(data){ 
-            $scope.user = data.entity;
-            console.log($scope.user);
-          });
-        }
-      }
+  .controller('ProfileController', function($scope, breezeService, $stateParams, $previousState, $state) {
+    $scope.user = {};
+    init();
+    $scope.close_modal = function() {
+      if ($previousState.get("before-popover").state.name === "") $state.go('root'); else $previousState.go("before-popover");
+      $previousState.forget("before-popover");
     };
+    function init() {
+      breezeService.getEntityByID('EUser', $stateParams.userId).then(function(data){
+        $scope.user = data[0];
+        $scope.modal_selected = true;
+      });
+    }
   })
 
   .controller('ProfileNotificationsController', function($scope, notificationsService, $stateParams, $state){

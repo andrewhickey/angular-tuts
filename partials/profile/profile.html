@@ -1,16 +1,22 @@
+<div class="quest-blackout" ng-click="close_modal()"></div>
 
-    <div class="row">
-      <ul class="nav nav-tabs" role="tablist">
-        <li ng-class="{active: $state.includes('profile.view')}" ><a  ui-sref="profile.view">Public Profile</a></li>
-        <li ng-class="{active:$state.includes('profile.personal_business_quest')}"><a  ui-sref="profile.personal_business_quest">Personal Business Quest</a></li>
-        <li ng-class="{active:$state.includes('profile.focus_areas')}"><a  ui-sref="profile.focus_areas">Focus Areas</a></li>
-        <li ng-class="{active:$state.includes('profile.notifications')}"><a  ui-sref="profile.notifications">Notifications</a></li>
-      </ul>
-    </div>
+<div class="quest-modal centre-modal">
 
-    <div class="row" >
-      <div class="col-md-4" ui-view="profile-left-pane">
-      </div>
-      <div class="col-md-8" ui-view="profile-right-pane">
-      </div>
-    </div>
+  <button type="button" class="close" ng-click="closeModal()"><span>&times;</span></button>
+  <div class="popover-menu">
+    <ul class="quest-floating-menu">
+      <li ng-class="{'quest-active': $state.includes('profile.view')}" ><a  ui-sref="profile.view">Public Profile</a></li>
+      <li ng-class="{'quest-active':$state.includes('profile.personal_business_quest')}"><a  ui-sref="profile.personal_business_quest">Personal Business Quest</a></li>
+      <li ng-class="{'quest-active':$state.includes('profile.focus_areas')}"><a  ui-sref="profile.focus_areas">Focus Areas</a></li>
+      <li ng-class="{'quest-active':$state.includes('profile.notifications') || $state.includes('profile.notifications_id') }"><a  ui-sref="profile.notifications">Notifications</a></li>
+    </ul>
+  </div>
+
+  <div class="popover-main " >
+  <div class="popover-main-wrapper">
+    <div class="popover-left-column" ui-view="profile-left-pane"></div>
+    <div class="popover-right-column" ui-view="profile-right-pane"></div>
+  </div>
+  </div>
+
+</div>  

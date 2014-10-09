@@ -3,6 +3,7 @@
   angular.module('quest',[
     'ui.router',
     'ct.ui.router.extras',
+    'ngAnimate',
     'profileModule',
     'journalModule',
     'commentsModule',
@@ -13,46 +14,22 @@
     // For any unmatched url, redirect to /state1
     //$urlRouterProvider.otherwise("/profile/view");
     $stateProvider
-      .state('popover', {
-        url: '/popover',
+      .state('root', {
+        url: '/',
         views: {
-          "popover-view": { template: '<ui-view></ui-view>' },
+          "root-view": { templateUrl: 'root.html' },
         },
-        onEnter: function($previousState){
-          $previousState.memo("before-popover");
+        resolve: {
+          // waits for the breeze service to finish loading before loading the state and any sub states
+          breezeReady:  function(breezeService) { 
+            return breezeService.whenReady;
+          }
         }
-      })
-      .state('profile', {
-        url: "/profile",
-        parent: 'popover',
-        template: "<profile-popover></profile-popover>",
-        sticky: true
-      })
-      .state('journal', {
-        url: "/journal",
-        parent: 'popover',
-        template: "<journal-popover></journal-popover>",
-        sticky: true
-      })
 
-      .state('lesson', {
-        url: "/lesson",
-        abstract: true,
-        views: {
-          "popout-view": { template: '<ui-view></ui-view>' },
-        },
-        sticky: true
-      })
-      .state('lesson.view', {
-        url: "/view/{lessonId}",
-        template: "<lesson-popout></lesson-popout>",
-        sticky: true
-      })
-      .state('lesson.summary', {
-        url: "/summary/{lessonId}",
-        template: "<lesson-summary-popout></lesson-summary-popout>",
-        sticky: true
       });
+      
+      
+
   }])
 
   .run(

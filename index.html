@@ -8,8 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <script type="text/javascript" src="js/angular.js"></script>
-  <script type="text/javascript" src="js/angular-ui-router.js"></script>
-  <script type="text/javascript" src="js/ct-ui-router-extras.js"></script>
+  <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+  <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script type="text/javascript" src="bower_components/ui-router-extras/release/ct-ui-router-extras.js"></script>
   <script type="text/javascript" src="js/profile/profile.js"></script>
   <script type="text/javascript" src="js/journal/journal.js"></script>
   <script type="text/javascript" src="js/comments/comments.js"></script>
@@ -23,7 +24,7 @@
   <script type="text/javascript" src="js/data/questionsprovider.js"></script>
   <script type="text/javascript" src="js/data/notificationscontext.js"></script>
   <script type="text/javascript" src="js/data/entriescontext.js"></script>
-  <script type="text/javascript" src="js/data/data.js"></script>
+  <script type="text/javascript" src="js/data/datacontext.js"></script>
   <script type="text/javascript" src="js/lesson/lessonmap.js"></script>
   <script type="text/javascript" src="js/lesson/lessonsummary.js"></script>
   <script type="text/javascript" src="js/lesson/lesson.js"></script>
@@ -36,23 +37,15 @@
 </head>
 <body>
 
-  <div>Current state: {{ $state.current.name }}</div>
-  <div>
-    <h1>Main Menu</h1>
+  <div class="menu-container">
+    <div>Current state: {{ $state.current.name }}</div>
     <ul>
       <li><a ui-sref="profile.view({userId: 1})">Profile</a></li>
       <li><a ui-sref="journal.view">Journal</a></li>
     </ul>
   </div>
-
-  <lesson-map>
-  </lesson-map>
-
-  <!-- This contains views that drop over from the top of the screen -->
-  <div class="well" ui-view="popover-view" ng-show="$state.includes('popover')"></div>
-
-  <!-- This contains views that pop out from the right of the screen --> 
-  <div class="well" ui-view="popout-view"></div> 
   
+  <div class="main-container" ui-view="root-view"></div> 
+
 </body>
 </html>

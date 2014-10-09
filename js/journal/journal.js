@@ -4,6 +4,19 @@ var journal = angular
   .module('journalModule', ['ui.router'])
   .config( function($stateProvider, $urlRouterProvider) {
     $stateProvider
+      .state('journal', {
+        url: "journal",
+        parent: 'root',
+        views: {
+          'journal-modal-view':{
+            templateUrl: 'partials/journal/journal.html',
+            controller: 'JournalController'
+          }
+        },
+        onEnter: function($previousState){          
+          if ($previousState.get("before-popover") === void(0)) $previousState.memo("before-popover");
+        }
+      })
       .state('journal.view', {
         url: "/view"
       })
@@ -21,26 +34,25 @@ var journal = angular
         url: "/compose",
         templateUrl: "partials/journal/journalEntryForm.html",
         controller: 'journalComposeEntryController'
-      })
+      });
   })
 
-  .directive('journalPopover', function() {
-    return {
-      restrict: 'E',
-      templateUrl: 'partials/journal/journal.html',
-      controller: function($scope, journalService, $stateParams, $state) {
-        $scope.journal_entries = [];
+  .controller('JournalController', function($scope, journalService, $stateParams, $previousState, $state) {
+    $scope.journal_entries = [];
 
-        init();
-        function init() {
-
-          $scope.journal_entries = journalService.getEntries();
-          if ($state.current.name === 'journal.view' && $scope.journal_entries.length > 0) $state.go('journal.view_id', {entryId: $scope.journal_entries[0].id} );
-
-        }
-      }
+    init();
+    $scope.close_modal = function() {
+      if ($previousState.get("before-popover").state.name === "") $state.go('root'); else $previousState.go("before-popover");
+      $previousState.forget("before-popover");
     };
+    function init() {
+      $scope.journal_entries = journalService.getEntries();
+      if ($state.current.name === 'journal.view' && $scope.journal_entries.length > 0) $state.go('journal.view_id', {entryId: $scope.journal_entries[0].id} );
+    }
+
   })
+
+
   .controller('journalViewEntryController', function($scope, journalService, $stateParams) {
     $scope.journal_entry = {};
     init();

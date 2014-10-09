@@ -1,0 +1,7 @@
+  
+  <lesson-map></lesson-map>
+
+  <div class="quest-popover" ui-view="profile-modal-view" ng-class="{'modal-on-top': $state.includes('profile') }"></div>
+  <div class="quest-popover" ui-view="journal-modal-view" ng-class="{'modal-on-top': $state.includes('journal') }"></div>
+  <div class="quest-popout " ui-view="lesson-summary-modal-view" ng-class="{'modal-on-top': $state.includes('lesson_summary') }"></div>
+  <div class="quest-popout " ui-view="lesson-modal-view" ng-class="{'modal-on-top': $state.includes('lesson') }"></div>

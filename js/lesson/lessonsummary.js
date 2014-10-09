@@ -2,21 +2,26 @@
 
 var journal = angular
   .module('lessonSummaryModule', ['ui.router'])
-
-  .directive('lessonSummaryPopout', function() {
-    return {
-      restrict: 'E',
-      templateUrl: 'partials/lesson/lessonsummary.html',
-      controller: 'lessonSummaryController'
-    };
+  .config( function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('lesson_summary', {
+        url: "summary/{lessonId}",
+        parent: 'root',
+        views: {
+          'lesson-summary-modal-view': { 
+            templateUrl: 'partials/lesson/lessonsummary.html',
+            controller: 'lessonSummaryController'
+          }
+        }
+      });
   })
   
-  .controller('lessonSummaryController', function($scope, lessonService, $stateParams) {
+  .controller('lessonSummaryController', function($scope, breezeService, $stateParams) {
     $scope.lesson = {};
     init();
     function init() {
-      lessonService.getLesson($stateParams.lessonId, ['modules']).then(function(data){
-        $scope.lesson = data.entity;
+      breezeService.getEntityByID('ELesson', $stateParams.lessonId, ['modules']).then(function(data){
+        $scope.lesson = data[0];
       });
     }
   });

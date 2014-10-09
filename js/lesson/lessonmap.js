@@ -8,11 +8,11 @@ var profile = angular
     return {
       restrict: 'E',
       templateUrl: 'partials/lesson/lessonmap.html',
-      controller: function($scope, lessonService) {
+      controller: function($scope, breezeService) {
         $scope.lessons = [];
         init();
         function init() {
-          lessonService.getLessons().then(function(data){ 
+          breezeService.getEntities('ELesson', [['instance_id', 'eq', 1]]).then(function(data){
             $scope.lessons = data;
           });
         }
